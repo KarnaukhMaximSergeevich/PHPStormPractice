@@ -17,7 +17,7 @@ if(isset($_GET['search'])) {
 
         echo 'Ошибка cURL: ' . curl_error($ch);
     } else {
-        // Обработка успешного запроса
+
         $search_results = json_decode($resultJson, true);
 
     }
