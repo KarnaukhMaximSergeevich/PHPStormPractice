@@ -1,26 +1,26 @@
 <?php
 if(isset($_GET['search'])) {
-    // !!! TODO 1: ваш код обработки GET запроса; выполнения запроса через cURL в поисковую систему; подготовка данных для отрисовки
 
+    $config = require_once "config.php";
     $search_query = urlencode($_GET['search']);
-    $api_key = 'AIzaSyDa9eOMy3mvSoYBmsU2Mb1WH3TXniV8tVU'; // Замените на свой ключ API
-    $cx = 'a61791b5629a04e73'; // Замените на свой идентификатор пользователя
+    $api_key = $config['api_key'];
+    $cx = $config['cx'];
 
     $url = "https://www.googleapis.com/customsearch/v1?q={$search_query}&key={$api_key}&cx={$cx}";
 
-    $ch = curl_init(); // открыть сеанс cURL
-    curl_setopt($ch, CURLOPT_URL, $url); // установить параметр $url
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // вернуть ответ в строку
-    $resultJson = curl_exec($ch); // выполнить запрос
-    curl_close($ch); // закрыть сеанс cURL
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $resultJson = curl_exec($ch);
+    curl_close($ch);
 
     if ($resultJson === false) {
-        // Обработка ошибок cURL
+
         echo 'Ошибка cURL: ' . curl_error($ch);
     } else {
-        // Обработка успешного запроса
+
         $search_results = json_decode($resultJson, true);
-        // Далее вы можете обработать $search_results, чтобы извлечь необходимую информацию
+
     }
 }
 ?>
@@ -40,9 +40,9 @@ if(isset($_GET['search'])) {
 </form>
 
 <?php
-// !!! TODO 2: ваш код отрисовки ответа
+
 if (isset($search_results)) {
-    // Добавьте код для отрисовки результатов поиска
+
     foreach ($search_results['items'] as $item) {
         echo '<p><a href="' . $item['link'] . '">' . $item['title'] . '</a><br>';
         echo $item['snippet'] . '</p>';
