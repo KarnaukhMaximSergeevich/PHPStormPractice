@@ -1,9 +1,10 @@
 <?php
 if(isset($_GET['search'])) {
 
+    $config = require_once "config.php";
     $search_query = urlencode($_GET['search']);
-    $api_key = 'AIzaSyDa9eOMy3mvSoYBmsU2Mb1WH3TXniV8tVU';
-    $cx = 'a61791b5629a04e73';
+    $api_key = $config['api_key'];
+    $cx = $config['cx'];
 
     $url = "https://www.googleapis.com/customsearch/v1?q={$search_query}&key={$api_key}&cx={$cx}";
 
